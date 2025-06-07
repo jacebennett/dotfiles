@@ -16,7 +16,8 @@
 [[ ! -o interactive ]] && return
 
 # this script's directory, not the current working directory or home
-export DOT=${0:A:h}
+THISFILE=${(%):-%x}
+export DOT=${THISFILE:A:h}
 
 export EDITOR="nvim"
 export VISUAL="nvim"
