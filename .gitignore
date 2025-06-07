@@ -2,4 +2,6 @@
 !.gitignore
 !zsh/
 !zsh/**
+!.vscode/
+!.vscode/**
 
