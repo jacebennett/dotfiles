@@ -38,6 +38,7 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
 fi
 
 insert-fuzzy-history-search() {
+
     # Clear current line temporarily
     local original_buffer="$BUFFER"
     local original_cursor="$CURSOR"
@@ -59,5 +60,7 @@ insert-fuzzy-history-search() {
 }
 
 zle -N insert-fuzzy-history-search
-bindkey "^R" insert-fuzzy-history-search
+bindkey -M emacs "^R" insert-fuzzy-history-search
+bindkey -M viins "^R" insert-fuzzy-history-search
+bindkey -M vicmd "^R" insert-fuzzy-history-search
 
