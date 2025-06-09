@@ -44,11 +44,12 @@ insert-fuzzy-history-search() {
     local original_cursor="$CURSOR"
     
     # Run your utility (replace with your actual command)
-    local selected_command=$(fc -l -n 1 | fzf --tac --no-sort --scheme=history --reverse --height=8)
+    local selected_command=$(fc -l -n 1 | fzf --tac --no-sort --scheme=history --reverse --height=8 --prompt '? ' --query "$BUFFER")
     
     # If command was selected, insert it
     if [[ -n "$selected_command" ]]; then
-        LBUFFER+="$selected_command"
+        LBUFFER="$selected_command"
+	RBUFFER=""
     else
         # Restore original state if cancelled
         BUFFER="$original_buffer"

@@ -3,6 +3,7 @@
 alias la='ls -A'
 alias ll='ls -al'
 alias vim='nvim'
+alias kvim='NVIM_APPNAME=kickstart.nvim nvim'
 
 # python
 

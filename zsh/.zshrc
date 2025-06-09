@@ -22,6 +22,8 @@ export DOT=${THISFILE:A:h}
 export EDITOR="nvim"
 export VISUAL="nvim"
 
+source $DOT/plugins/zman/zman.zsh
+
 source $DOT/history.zsh
 source $DOT/colors.zsh
 

@@ -4,4 +4,8 @@
 !zsh/**
 !.vscode/
 !.vscode/**
+!kickstart.nvim/
+!kickstart.nvim/**
+!nvim/
+!nvim/**
 

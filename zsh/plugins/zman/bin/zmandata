@@ -1,0 +1,45 @@
+#!/usr/bin/env zsh
+
+0=${(%):-%N}
+PRJ_HOME=${0:a:h:h}
+WORKON_HOME=${WORKON_HOME:-${XDG_DATA_HOME:-$HOME/.local/share}/venvs}
+VENV_HOME=$WORKON_HOME/zman
+
+# setup venv
+if [[ -d $VENV_HOME ]]; then
+  source $VENV_HOME/bin/activate
+else
+  python3 -m venv $VENV_HOME
+  source $VENV_HOME/bin/activate
+  pip install --upgrade pip
+  pip install -r ${0:a:h}/requirements.txt
+fi
+
+# update pip requirements
+if [[ $1 == "--pipup" ]]; then
+  echo "Updating pip requirements..."
+  pip list --outdated | awk 'NR>2 {print $1}' | xargs -n1 pip install -U
+	pip freeze > $PRJ_HOME/bin/requirements.txt
+	deactivate
+  return
+fi
+
+# download the latest docs
+if [[ $1 == "--refresh" ]]; then
+  echo "dowloading latest docs..."
+  mv $PRJ_HOME/docs/readme.md $PRJ_HOME/docs_readme.md
+  rm -rf -- $PRJ_HOME/docs
+  mkdir -p -- $PRJ_HOME/docs
+
+  curl -fsSL http://zsh.sourceforge.net/Doc/zsh_html.tar.gz -o $PRJ_HOME/docs/zsh_html.tar.gz
+  tar -zxf $PRJ_HOME/docs/zsh_html.tar.gz --directory $PRJ_HOME/docs
+
+  # curl -fsSL https://www.gnu.org/software/bash/manual/bash.html_node.tar.gz -o $PRJ_HOME/docs/bash_html.tar.gz
+  # mkdir -p $PRJ_HOME/docs/bash_html
+  # tar -zxf $PRJ_HOME/docs/bash_html.tar.gz --directory $PRJ_HOME/docs/bash_html
+
+  mv $PRJ_HOME/docs_readme.md $PRJ_HOME/docs/readme.md
+fi
+
+python $PRJ_HOME/bin/zmandata.py
+deactivate
