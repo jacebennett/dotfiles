@@ -54,3 +54,10 @@ bindkey -M vicmd ds delete-surround
 bindkey -M vicmd ys add-surround
 bindkey -M visual S add-surround
 
+bindkey "^[[H" beginning-of-line
+bindkey -M vicmd "^[[H" beginning-of-line
+bindkey -M visual "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey -M vicmd "^[[F" end-of-line
+bindkey -M visual "^[[F" end-of-line
+
