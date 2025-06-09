@@ -37,15 +37,14 @@ if [[ -n "${terminfo[kcud1]}" ]]; then
   bindkey -M vicmd "${terminfo[kcud1]}" down-line-or-beginning-search
 fi
 
-
 insert-fuzzy-history-search() {
     # Clear current line temporarily
     local original_buffer="$BUFFER"
     local original_cursor="$CURSOR"
-    
+
     # Run your utility (replace with your actual command)
     local selected_command=$(fc -l -n 1 | fzf --tac --no-sort --scheme=history --reverse --height=8 --prompt '? ' --query "$BUFFER")
-    
+
     # If command was selected, insert it
     if [[ -n "$selected_command" ]]; then
         LBUFFER="$selected_command"
@@ -55,10 +54,10 @@ insert-fuzzy-history-search() {
         BUFFER="$original_buffer"
         CURSOR="$original_cursor"
     fi
-    
+
     zle redisplay
 }
 
 zle -N insert-fuzzy-history-search
-bindkey '^R' insert-fuzzy-history-search
+bindkey "^R" insert-fuzzy-history-search
 
